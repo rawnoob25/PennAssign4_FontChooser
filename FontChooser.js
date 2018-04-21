@@ -52,17 +52,22 @@ class FontChooser extends React.Component {
     	}
     }
 
+    resetSize() {
+    	this.setState({size:Number(this.props.size)});
+    }
     render() {
     	const wt = this.state.bold === 'true'?'bold':'normal';
     	const sz = this.state.size;
-		const theStyle = {fontWeight:wt, fontSize:sz};
+    	const fontSizeSpanColor = (this.state.size>this.props.min && this.state.size<this.props.max)?'black':'red';
+    	const fontSizeSpanStyle = {color:fontSizeSpanColor};
+		const textStyle = {fontWeight:wt, fontSize:sz};
 		return (
 		       <div>
 			       <input type="checkbox" id="boldCheckbox" onClick={this.handleCheck.bind(this)} hidden='true'/>
 			       <button id="decreaseButton" hidden='true' onClick={this.decrement.bind(this)}>-</button>
-			       <span id="fontSizeSpan" hidden='true'>{this.state.size}</span>
+			       <span id="fontSizeSpan" hidden='true' style={fontSizeSpanStyle} onClick={this.resetSize.bind(this)}>{this.state.size}</span>
 			       <button id="increaseButton" onClick={this.increment.bind(this)} hidden='true'>+</button>
-			       <span id="textSpan" style={theStyle} onClick={this.toggleHide}>{this.props.text}</span>
+			       <span id="textSpan" style={textStyle} onClick={this.toggleHide}>{this.props.text}</span>
 		       </div>
 		);
     }
