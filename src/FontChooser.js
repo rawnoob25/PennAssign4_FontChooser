@@ -29,12 +29,12 @@ class FontChooser extends React.Component {
     }
 
     handleCheck(o) {
-	    if(o.checked) {
+	    if(!o.checked) {
 	    	this.setState({bold:'true'});
-	    	o.checked = false;
+	    	o.checked = true;
 	    } else {
 	    	this.setState({bold:'false'});
-	    	o.checked = true;
+	    	o.checked = false;
 	    }
     }
 
@@ -52,6 +52,11 @@ class FontChooser extends React.Component {
     	}
     }
 
+    //click handler for span, fontSizeSpan; assigned as callback to 'onClick' attribute;
+    //assignment statement says to respond to a 'double-click'...question: what's the 
+    //attribute corresponding to a doubleclick?
+    //answer: it's onDoubleClick!
+    //TODO: MAKE AN INLINE COMMENT AT THE APPROPRIATE PLACE!
     resetSize() {
     	this.setState({size:Number(this.props.size)});
     }
@@ -63,13 +68,14 @@ class FontChooser extends React.Component {
 		const textStyle = {fontWeight:wt, fontSize:sz};
 		return (
 		       <div>
-			       <input type="checkbox" id="boldCheckbox" onClick={this.handleCheck.bind(this)} hidden='true'/>
+			       <input type="checkbox" id="boldCheckbox" onChange={this.handleCheck.bind(this)} hidden='true'/>
 			       <button id="decreaseButton" hidden='true' onClick={this.decrement.bind(this)}>-</button>
-			       <span id="fontSizeSpan" hidden='true' style={fontSizeSpanStyle} onClick={this.resetSize.bind(this)}>{this.state.size}</span>
+			       <span id="fontSizeSpan" hidden='true' style={fontSizeSpanStyle} onDoubleClick={this.resetSize.bind(this)}>{this.state.size}</span>
 			       <button id="increaseButton" onClick={this.increment.bind(this)} hidden='true'>+</button>
 			       <span id="textSpan" style={textStyle} onClick={this.toggleHide}>{this.props.text}</span>
 		       </div>
 		);
     }
 }
+
 
